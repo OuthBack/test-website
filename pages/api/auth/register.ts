@@ -35,8 +35,8 @@ export default async (
             res.status(200).json({ message: "User Already Registred" });
             return;
         }
-        await bcrypt.genSalt(saltRounds, function (err: any, salt: any) {
-            bcrypt.hash(password, salt, function (err: any, hash: any) {
+        await bcryptjs.genSalt(saltRounds, function (err: any, salt: any) {
+            bcryptjs.hash(password, salt, function (err: any, hash: any) {
                 const user = db.collection("users").insertOne({
                     username: username,
                     password: hash,
