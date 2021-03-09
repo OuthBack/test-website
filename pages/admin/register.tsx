@@ -34,7 +34,7 @@ export default function Register() {
             <Card className={classes.root}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
-                        Welcome to Register Admin
+                        Welcome to Create Pages Admin
                     </Typography>
                     <UserRegister />
                 </CardContent>

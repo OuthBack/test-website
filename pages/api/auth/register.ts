@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
-import jwt from "jsonwebtoken";
-import bcryptjs from "bcryptjs";
 
 interface ErrorResponseType {
     error: string;
@@ -15,34 +13,29 @@ export default async (
     req: NextApiRequest,
     res: NextApiResponse<SucessResponseType | ErrorResponseType>
 ): Promise<void> => {
-    const { username, password } = req.body.auth;
+    const { username } = req.body;
 
-    if (!username || !password) {
+    if (!username) {
         res.status(400).json({ error: "Missing Name" });
         return;
     }
 
     if (req.method === "POST") {
         const { db } = await connect();
-        const saltRounds: number = 10;
-
         const userExists = await db.collection("users").findOne({
             username: username,
         });
 
         if (userExists) {
-            res.status(200).json({ message: "User Already Registred" });
+            res.status(200).json({ message: "Page Already Created" });
             return;
-        }
-        await bcryptjs.genSalt(saltRounds, function (err: any, salt: any) {
-            bcryptjs.hash(password, salt, function (err: any, hash: any) {
-                const user = db.collection("users").insertOne({
-                    username: username,
-                    password: hash,
-                });
-                res.status(200).json({ message: "User Registred with Sucess" });
+        } else {
+            const user = db.collection("users").insertOne({
+                username: username,
             });
-        });
+            res.status(200).json({ message: "Created with Sucess" });
+        }
+
         return;
     } else {
         res.status(400).json({ error: "Not POST Method" });
@@ -50,7 +43,7 @@ export default async (
     }
 
     res.status(400).json({
-        error: "Hash Error",
+        error: "Error",
     });
     return;
 };

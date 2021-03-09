@@ -39,7 +39,7 @@ export default function Admin() {
                 </CardContent>
                 <CardActions>
                     <Button size="small">
-                        <a href={"/admin/register"}>Register Accounts</a>
+                        <a href={"/admin/register"}>CREATE</a>
                     </Button>
                 </CardActions>
             </Card>

@@ -35,28 +35,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserRegister() {
     const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
     const [rePassword, setRePassword] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
     const register = async (): Promise<void> => {
-        if (password == rePassword) {
-            const axios = require("axios");
-            axios({
-                method: "POST",
-                url: "../api/auth/register",
-                data: {
-                    auth: {
-                        username: username.toLocaleLowerCase(),
-                        password: password,
-                    },
-                },
-            }).then((response: any) => {
-                setMessage(response.data.message);
-            });
-        } else {
-            setMessage("Password Don't Match");
-        }
+        const axios = require("axios");
+        axios({
+            method: "POST",
+            url: "../api/auth/register",
+            data: {
+                username: username.toLocaleLowerCase(),
+            },
+        }).then((response: any) => {
+            setMessage(response.data.message);
+        });
     };
 
     const classes = useStyles();
@@ -65,17 +57,14 @@ export default function UserRegister() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
                 <Typography component="h1" variant="h5">
-                    Register User
+                    Create
                 </Typography>
                 <form className={classes.form} noValidate>
                     {message && (
                         <Typography
                             style={{ color: "red", textAlign: "center" }}
-                            component="h6"
+                            component="h5"
                             variant="h5"
                         >
                             {message}
@@ -88,37 +77,11 @@ export default function UserRegister() {
                                 required
                                 fullWidth
                                 id="username"
-                                label="Username"
+                                label=""
                                 name="username"
                                 autoComplete="email"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="confirm-password"
-                                label="Confirm Password"
-                                type="password"
-                                id="confirm-password"
-                                autoComplete="current-password"
-                                value={rePassword}
-                                onChange={(e) => setRePassword(e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -130,7 +93,7 @@ export default function UserRegister() {
                         className={classes.submit}
                         onClick={register}
                     >
-                        Register
+                        Create
                     </Button>
                 </form>
             </div>
