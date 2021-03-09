@@ -12,6 +12,10 @@ import { CookiesProvider } from "react-cookie";
 export default function Admin() {
     const useStyles = makeStyles({
         root: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             minWidth: 275,
         },
         bullet: {
