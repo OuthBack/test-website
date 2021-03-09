@@ -12,8 +12,13 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Card, CardContent } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        minWidth: 275,
+    },
+
     paper: {
         marginTop: theme.spacing(8),
         display: "flex",
@@ -38,57 +43,61 @@ export default function Login(props: any) {
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Login
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="username"
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
-                        autoFocus
-                        value={props.username.username}
-                        onChange={(e) =>
-                            props.username.setUsername(e.target.value)
-                        }
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        value={props.password.password}
-                        onChange={(e) =>
-                            props.password.setPassword(e.target.value)
-                        }
-                    />
-                    <Button
-                        type="button"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={props.enterLogin}
-                    >
-                        Login
-                    </Button>
-                </form>
-            </div>
+            <Card className={classes.root}>
+                <CardContent>
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Login
+                        </Typography>
+                        <form className={classes.form} noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
+                                value={props.username.username}
+                                onChange={(e) =>
+                                    props.username.setUsername(e.target.value)
+                                }
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={props.password.password}
+                                onChange={(e) =>
+                                    props.password.setPassword(e.target.value)
+                                }
+                            />
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={props.enterLogin}
+                            >
+                                Login
+                            </Button>
+                        </form>
+                    </div>
+                </CardContent>
+            </Card>
         </Container>
     );
 }
