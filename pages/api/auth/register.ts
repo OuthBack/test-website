@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import bcryptjs from "bcryptjs";
 
 interface ErrorResponseType {
