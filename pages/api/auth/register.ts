@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 interface ErrorResponseType {
     error: string;
@@ -23,7 +24,6 @@ export default async (
 
     if (req.method === "POST") {
         const { db } = await connect();
-        const bcrypt = require("bcrypt");
         const saltRounds: number = 10;
 
         const userExists = await db.collection("users").findOne({
