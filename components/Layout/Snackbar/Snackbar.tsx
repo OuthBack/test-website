@@ -7,7 +7,7 @@ import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 import Fade from "@material-ui/core/Fade";
 import { TransitionProps } from "@material-ui/core/transitions";
 
-export default function SimpleSnackbar(props) {
+export default function SimpleSnackbar(props: any) {
     const [state, setState] = React.useState<{
         open: boolean;
         Transition: React.ComponentType<
