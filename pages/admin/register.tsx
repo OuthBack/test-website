@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { Typography, Container, Card } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,7 +9,16 @@ import Logout from "@components/Login/logout";
 import { CookiesProvider } from "react-cookie";
 import UserRegister from "@components/Login/Register";
 
+export const Info = createContext();
+export const SetInfo = createContext();
+
 export default function Register() {
+    const [info, setInfo] = useState({
+        message: "",
+        severity: "",
+        trigger: "",
+    });
+
     const useStyles = makeStyles({
         root: {
             minWidth: 275,
@@ -33,13 +42,19 @@ export default function Register() {
         <Container>
             <Card className={classes.root}>
                 <CardContent>
-                    <Typography variant="h5" component="h2">
+                    <Typography
+                        color="primary"
+                        style={{ textAlign: "center" }}
+                        variant="h5"
+                        component="h2"
+                    >
                         Welcome to Create Pages Admin
                     </Typography>
-                    <UserRegister />
+                    <br />
+                    <UserRegister setInfo={setInfo} Info={Info} />
                 </CardContent>
                 <CardActions>
-                    <Button size="small">
+                    <Button size="small" color="primary" variant="contained">
                         <a href="./">Admin</a>
                     </Button>
                 </CardActions>

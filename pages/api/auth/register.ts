@@ -33,6 +33,7 @@ export default async (
             const user = db.collection("users").insertOne({
                 username: username,
             });
+
             res.status(200).json({ message: "Created with Sucess" });
         }
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+//@ts-ignore
+import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +13,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import SimpleSnackbar from "@components/Layout/Snackbar";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,8 +37,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserRegister() {
     const [username, setUsername] = useState<string>("");
-    const [rePassword, setRePassword] = useState<string>("");
-    const [message, setMessage] = useState<string>("");
+    const [info, setInfo] = useState({
+        message: "",
+        severity: "",
+        trigger: "",
+    });
+    const [url, setUrl] = useState<string>("");
 
     const register = async (): Promise<void> => {
         const axios = require("axios");
@@ -46,9 +52,51 @@ export default function UserRegister() {
             data: {
                 username: username.toLocaleLowerCase(),
             },
-        }).then((response: any) => {
-            setMessage(response.data.message);
-        });
+        })
+            .then((response: any) => {
+                const created = "Page Already Created";
+                const success = "Created with Sucess";
+
+                if (response.data.message == created) {
+                    setInfo((previousState: any) => {
+                        return {
+                            ...previousState,
+                            message: created,
+                            severity: "error",
+                            trigger: true,
+                        };
+                    });
+                } else if (response.data.message == success) {
+                    setInfo((previousState: any) => {
+                        return {
+                            ...previousState,
+                            message: success,
+                            severity: "success",
+                            trigger: true,
+                        };
+                    });
+                } else {
+                    setInfo((previousState: any) => {
+                        return {
+                            ...previousState,
+                            message: response.error,
+                            severity: "error",
+                            trigger: true,
+                        };
+                    });
+                }
+            })
+            .catch((error: any) => {
+                setInfo((previousState: any) => {
+                    console.log(error.response.data.error);
+                    return {
+                        ...previousState,
+                        message: "Error " + error.response.data.error,
+                        severity: "error",
+                        trigger: true,
+                    };
+                });
+            });
     };
 
     const classes = useStyles();
@@ -57,19 +105,14 @@ export default function UserRegister() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h1" variant="h5">
+                <Typography
+                    style={{ textAlign: "center" }}
+                    component="h1"
+                    variant="h5"
+                >
                     Create
                 </Typography>
                 <form className={classes.form} noValidate>
-                    {message && (
-                        <Typography
-                            style={{ color: "red", textAlign: "center" }}
-                            component="h5"
-                            variant="h5"
-                        >
-                            {message}
-                        </Typography>
-                    )}
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -85,18 +128,41 @@ export default function UserRegister() {
                             />
                         </Grid>
                     </Grid>
-                    <Button
-                        type="button"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={register}
+                    <Grid
+                        container
+                        justify="space-between"
+                        alignItems="center"
+                        spacing={4}
                     >
-                        Create
-                    </Button>
+                        <Grid item xs={6}>
+                            <Button
+                                fullWidth
+                                type="button"
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={register}
+                            >
+                                Create
+                            </Button>
+                        </Grid>
+                        <Grid item xs>
+                            <Button
+                                fullWidth
+                                type="button"
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                disabled={username ? false : true}
+                                href={"../" + username.toLocaleLowerCase()}
+                            >
+                                Go to the Page
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </form>
             </div>
+            <SimpleSnackbar SetInfo={setInfo} Info={info} />
         </Container>
     );
 }

@@ -38,7 +38,12 @@ export default function Admin() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">
+                    <Button
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                        size="small"
+                    >
                         <a href={"/admin/register"}>CREATE</a>
                     </Button>
                 </CardActions>

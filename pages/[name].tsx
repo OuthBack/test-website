@@ -13,7 +13,7 @@ const Name = () => {
     const [shortLink, setShortLink] = useState<string>("");
 
     const domainUriPrefix = "https://testnextjs.page.link";
-    const link = "https://test-website.vercel.app/user";
+    const link = "https://test-website.vercel.app/";
 
     const register = async (name: Message): Promise<void> => {
         const axios = require("axios");
@@ -41,7 +41,7 @@ const Name = () => {
             data: {
                 dynamicLinkInfo: {
                     domainUriPrefix: domainUriPrefix,
-                    link: link,
+                    link: window.location.href,
                     androidInfo: {
                         androidPackageName: "com.testnextjs.android",
                     },
@@ -51,7 +51,7 @@ const Name = () => {
                 },
             },
         }).then((response: any) => {
-            setShortLink(response.data.shortLink);
+            router.push(response.data.shortLink);
         });
     };
 
@@ -64,6 +64,10 @@ const Name = () => {
 
     const useStyles = makeStyles({
         root: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             minWidth: 275,
         },
         bullet: {
@@ -85,12 +89,17 @@ const Name = () => {
         <Container>
             <Card className={classes.root}>
                 <CardContent>
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h3" component="h2">
                         {message}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button href={shortLink} onClick={share}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        href={shortLink}
+                        onClick={share}
+                    >
                         SHARE
                     </Button>
                 </CardActions>
