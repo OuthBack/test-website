@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 const Logout = () => {
     const tokenCookie = "token";
     const [cookies, setCookie, removeCookie] = useCookies([tokenCookie]);
-    const loginURL = "http://localhost:3000";
+    const loginURL = "https://test-website.vercel.app";
 
     const cookieRemover = () => {
         removeCookie(tokenCookie);
