@@ -10,28 +10,6 @@ import { CookiesProvider } from "react-cookie";
 import UserRegister from "@components/Login/Register";
 
 export default function Register() {
-    const [admin, setAdmin] = useState<boolean>(false);
-
-    useEffect(() => {
-        const axios = require("axios");
-        const admin = axios({
-            method: "GET",
-            url: "/api/admin-page/admin-page",
-        }).then((response: any) => {
-            if (
-                response.status === 200 &&
-                response.data.message == "Admin Logged In"
-            ) {
-                setAdmin(true);
-            } else if (
-                response.status === 200 &&
-                response.data.message == "User Logged In"
-            ) {
-                setAdmin(false);
-            }
-        });
-    }, []);
-
     const useStyles = makeStyles({
         root: {
             minWidth: 275,
@@ -53,38 +31,19 @@ export default function Register() {
 
     return (
         <Container>
-            {admin && (
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography variant="h5" component="h2">
-                            Welcome to Register Admin
-                        </Typography>
-                        <UserRegister />
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">
-                            <a href="/register">Register Accounts</a>
-                        </Button>
-                        <CookiesProvider>
-                            <Logout />
-                        </CookiesProvider>
-                    </CardActions>
-                </Card>
-            )}
-            {!admin && (
-                <Card className={classes.root}>
-                    <CardContent>
-                        <Typography variant="h5" component="h2">
-                            Not Logged
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <CookiesProvider>
-                            <Logout />
-                        </CookiesProvider>
-                    </CardActions>
-                </Card>
-            )}
+            <Card className={classes.root}>
+                <CardContent>
+                    <Typography variant="h5" component="h2">
+                        Welcome to Register Admin
+                    </Typography>
+                    <UserRegister />
+                </CardContent>
+                <CardActions>
+                    <Button size="small">
+                        <a href="./">Admin</a>
+                    </Button>
+                </CardActions>
+            </Card>
         </Container>
     );
 }
