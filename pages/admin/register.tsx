@@ -13,7 +13,23 @@ export default function Register() {
     const [admin, setAdmin] = useState<boolean>(false);
 
     useEffect(() => {
-        if (isLoggedAsAdmin) setAdmin(true);
+        const axios = require("axios");
+        const admin = axios({
+            method: "GET",
+            url: "/api/admin-page/admin-page",
+        }).then((response: any) => {
+            if (
+                response.status === 200 &&
+                response.data.message == "Admin Logged In"
+            ) {
+                setAdmin(true);
+            } else if (
+                response.status === 200 &&
+                response.data.message == "User Logged In"
+            ) {
+                setAdmin(false);
+            }
+        });
     }, []);
 
     const useStyles = makeStyles({
