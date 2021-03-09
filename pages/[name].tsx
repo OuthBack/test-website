@@ -8,11 +8,12 @@ import { useRouter } from "next/router";
 
 const Name = () => {
     type Message = string | string[] | undefined;
-
     const router = useRouter();
-
     const [message, setMessage] = useState<Message>("");
-    //const [name, setName] = useState<string>("");
+    const [shortLink, setShortLink] = useState<string>("");
+
+    const domainUriPrefix = "https://testnextjs.page.link";
+    const link = "https://test-website.vercel.app/user";
 
     const register = async (name: Message): Promise<void> => {
         const axios = require("axios");
@@ -27,6 +28,30 @@ const Name = () => {
             if (user) {
                 setMessage(response.data.message);
             } else if (!user) router.push("./404");
+        });
+    };
+
+    const share = async (): Promise<void> => {
+        const axios = require("axios");
+        axios({
+            method: "POST",
+            url:
+                "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=" +
+                "AIzaSyAEw1Pw7bgC6XJTWHj3QvxJSZFPPKZT7aY",
+            data: {
+                dynamicLinkInfo: {
+                    domainUriPrefix: domainUriPrefix,
+                    link: link,
+                    androidInfo: {
+                        androidPackageName: "com.testnextjs.android",
+                    },
+                    iosInfo: {
+                        iosBundleId: "com.testnextjs.ios",
+                    },
+                },
+            },
+        }).then((response: any) => {
+            setShortLink(response.data.shortLink);
         });
     };
 
@@ -64,7 +89,11 @@ const Name = () => {
                         {message}
                     </Typography>
                 </CardContent>
-                <CardActions></CardActions>
+                <CardActions>
+                    <Button href={shortLink} onClick={share}>
+                        SHARE
+                    </Button>
+                </CardActions>
             </Card>
         </Container>
     );
