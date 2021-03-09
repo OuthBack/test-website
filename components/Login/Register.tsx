@@ -88,7 +88,6 @@ export default function UserRegister() {
             })
             .catch((error: any) => {
                 setInfo((previousState: any) => {
-                    console.log(error.response.data.error);
                     return {
                         ...previousState,
                         message: "Error " + error.response.data.error,

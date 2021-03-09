@@ -5,12 +5,23 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import { useRouter } from "next/router";
+import TextField from "@material-ui/core/TextField";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import SimpleSnackbar from "@components/Layout/Snackbar";
 
 const Name = () => {
     type Message = string | string[] | undefined;
     const router = useRouter();
     const [message, setMessage] = useState<Message>("");
     const [shortLink, setShortLink] = useState<string>("");
+    const [url, setUrl] = useState("");
+    const [copy, setCopy] = useState<boolean>(false);
+    const [info, setInfo] = useState({
+        message: "",
+        severity: "",
+        trigger: "",
+    });
 
     const domainUriPrefix = "https://testnextjs.page.link";
     const link = "https://test-website.vercel.app/";
@@ -51,7 +62,7 @@ const Name = () => {
                 },
             },
         }).then((response: any) => {
-            router.push(response.data.shortLink);
+            setUrl(response.data.shortLink);
         });
     };
 
@@ -94,14 +105,37 @@ const Name = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        href={shortLink}
-                        onClick={share}
-                    >
+                    <Button variant="contained" color="primary" onClick={share}>
                         SHARE
                     </Button>
+                    {url && (
+                        <>
+                            <TextField color="primary" value={url} />
+                            <CopyToClipboard
+                                text={url}
+                                onCopy={() => {
+                                    setCopy(true);
+                                    setInfo((previousState: any) => {
+                                        return {
+                                            ...previousState,
+                                            message: "Copied to the Clipboard",
+                                            severity: "success",
+                                            trigger: true,
+                                        };
+                                    });
+                                }}
+                            >
+                                <Button
+                                    size="small"
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    <FileCopyIcon />
+                                </Button>
+                            </CopyToClipboard>
+                            <SimpleSnackbar SetInfo={setInfo} Info={info} />
+                        </>
+                    )}
                 </CardActions>
             </Card>
         </Container>
