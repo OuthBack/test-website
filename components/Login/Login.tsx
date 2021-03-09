@@ -29,10 +29,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
     },
-    form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
+    form: {},
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
@@ -45,57 +42,49 @@ export default function Login(props: any) {
         <Container component="main" maxWidth="xs">
             <Card className={classes.root}>
                 <CardContent>
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Login
-                        </Typography>
-                        <form className={classes.form} noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="username"
-                                label="Username"
-                                name="username"
-                                autoComplete="username"
-                                autoFocus
-                                value={props.username.username}
-                                onChange={(e) =>
-                                    props.username.setUsername(e.target.value)
-                                }
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                value={props.password.password}
-                                onChange={(e) =>
-                                    props.password.setPassword(e.target.value)
-                                }
-                            />
-                            <Button
-                                type="button"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                onClick={props.enterLogin}
-                            >
-                                Login
-                            </Button>
-                        </form>
-                    </div>
+                    <Typography component="h1" variant="h5">
+                        Login
+                    </Typography>
+                    <TextField
+                        variant="standard"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
+                        autoFocus
+                        value={props.username.username}
+                        onChange={(e) =>
+                            props.username.setUsername(e.target.value)
+                        }
+                    />
+                    <TextField
+                        variant="standard"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        value={props.password.password}
+                        onChange={(e) =>
+                            props.password.setPassword(e.target.value)
+                        }
+                    />
+                    <Button
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={props.enterLogin}
+                    >
+                        Login
+                    </Button>
                 </CardContent>
             </Card>
         </Container>
