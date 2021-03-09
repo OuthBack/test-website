@@ -1,3 +1,4 @@
+//@ts-nocheck
 import isLoggedAsAdmin from "@api/islogged";
 import { Typography, Container, Card } from "@material-ui/core";
 import React, { useState, useEffect } from "react";

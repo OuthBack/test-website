@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import isLoggedAsAdmin from "@api/islogged";
 import { Typography, Container, Card } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
@@ -12,9 +14,18 @@ export default function Admin() {
     const [admin, setAdmin] = useState<boolean>(false);
 
     useEffect(() => {
-        isLoggedAsAdmin().then((response: boolean) => {
-            setAdmin(response);
-        });
+        const isAdmin: Promise<boolean> | boolean = isLoggedAsAdmin();
+        try {
+            if (isAdmin == "object") {
+                isAdmin.then((response: boolean) => {
+                    setAdmin(response);
+                });
+            } else if (typeof isAdmin == "boolean") {
+                setAdmin(isAdmin);
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }, []);
 
     const useStyles = makeStyles({

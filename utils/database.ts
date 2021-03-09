@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { MongoClient, Db } from "mongodb";
 
 interface ConnectType {

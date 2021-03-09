@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
 import jwt from "jsonwebtoken";
@@ -33,7 +34,7 @@ export default async (
         await bcrypt.compare(
             password,
             user.password,
-            function (err, result: boolean) {
+            function (err: any, result: boolean) {
                 if (result) {
                     const token = jwt.sign(
                         {
