@@ -2,13 +2,12 @@ import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
 
-// Pode ser algum servidor executando localmente:
-// http://localhost:3000
-
-const api = axios.create({
+const axiosApi = axios.create({
     baseURL: process.env.SITE_URL,
 });
 
+export default axiosApi;
+/*
 interface ErrorResponseType {
     error: string;
 }
@@ -42,3 +41,4 @@ export default async (
         res.status(400).json({ error: name });
     }
 };
+*/

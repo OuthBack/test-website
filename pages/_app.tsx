@@ -1,12 +1,16 @@
 import "../styles/globals.css";
 import Layout from "@components/Layout";
 import type { AppProps } from "next/app";
+import { createContext, useState } from "react";
+import { CookiesProvider } from "react-cookie";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <CookiesProvider>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </CookiesProvider>
     );
 }
 
