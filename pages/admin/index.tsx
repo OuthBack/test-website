@@ -13,7 +13,6 @@ export default function Admin() {
     const [admin, setAdmin] = useState<boolean>(false);
 
     useEffect(() => {
-        const isAdmin: boolean = isLoggedAsAdmin();
         const axios = require("axios");
         const admin = axios({
             method: "GET",
