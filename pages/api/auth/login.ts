@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connect from "utils/database";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
+import bcryptjs from "bcryptjs";
 
 interface ErrorResponseType {
     error: string;
@@ -29,9 +30,7 @@ export default async (
             username: username,
         });
 
-        const bcrypt = require("bcrypt");
-
-        await bcrypt.compare(
+        await bcryptjs.compare(
             password,
             user.password,
             function (err: any, result: boolean) {
