@@ -54,7 +54,7 @@ const Name = () => {
                     domainUriPrefix: domainUriPrefix,
                     link: window.location.href,
                     androidInfo: {
-                        androidPackageName: "com.testnextjs.android",
+                        androidPackageName: "com.testapp",
                     },
                     iosInfo: {
                         iosBundleId: "com.testnextjs.ios",
