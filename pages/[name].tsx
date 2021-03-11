@@ -55,6 +55,8 @@ const Name = () => {
                     link: window.location.href,
                     androidInfo: {
                         androidPackageName: "com.testapp",
+                        androidFallbackLink:
+                            "https://https://play.google.com/store/apps/details?id=com.instagram.android",
                     },
                     iosInfo: {
                         iosBundleId: "com.testnextjs.ios",
