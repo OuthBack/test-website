@@ -60,6 +60,8 @@ const Name = () => {
                     },
                     iosInfo: {
                         iosBundleId: "com.testnextjs.ios",
+                        iosFallbackLink:
+                            "https://apps.apple.com/br/app/instagram/id389801252",
                     },
                 },
             },
